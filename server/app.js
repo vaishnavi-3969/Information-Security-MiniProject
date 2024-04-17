@@ -24,23 +24,49 @@ const db = new sqlite3.Database(dbPath);
 // Create users table
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)");
+    // Insert sample data for testing
+    db.run("INSERT INTO users (username, password) VALUES ('user1', 'password1')");
+    db.run("INSERT INTO users (username, password) VALUES ('user2', 'password2')");
 });
 
 const router = express.Router();
 
 router.post("/getdetails", (req, res) => {
     const { username, password } = req.body;
+    console.log("Received login request for username:", username, "and password:", password);
 
     db.serialize(() => {
-        db.get(`SELECT * FROM users WHERE username='${username}' AND password='${password}'`, (err, row) => {
+        db.get(`SELECT * FROM users WHERE username=? AND password=?`, [username, password], (err, row) => {
             if (err) {
                 res.status(500).send({ message: "Internal server error" });
                 console.error(err);
             } else {
+                console.log("Query result:", row);
                 if (row) {
-                    res.status(200).send([row]);
+                    res.status(200).send({ message: "Login successful" });
                 } else {
-                    res.status(401).send({ message: "Wrong username/password combination!" });
+                    res.status(401).send({ message: "Invalid username or password" });
+                }
+            }
+        });
+    });
+});
+
+router.post("/login", (req, res) => {
+    const { username, password } = req.body;
+    console.log("Received login request for username:", username, "and password:", password);
+
+    db.serialize(() => {
+        db.get(`SELECT * FROM users WHERE username=? AND password=?`, [username, password], (err, row) => {
+            if (err) {
+                res.status(500).send({ message: "Internal server error" });
+                console.error(err);
+            } else {
+                console.log("Query result:", row);
+                if (row) {
+                    res.status(200).send({ message: "Login successful" });
+                } else {
+                    res.status(401).send({ message: "Invalid username or password" });
                 }
             }
         });
@@ -59,6 +85,18 @@ router.post("/signup", (req, res) => {
                 res.status(201).send({ message: "User created successfully" });
             }
         });
+    });
+});
+
+
+router.get("/", (req, res) => {
+    db.all("SELECT * FROM users", (err, rows) => {
+        if (err) {
+            res.status(500).send({ message: "Internal server error" });
+            console.error(err);
+        } else {
+            res.status(200).send(rows);
+        }
     });
 });
 
