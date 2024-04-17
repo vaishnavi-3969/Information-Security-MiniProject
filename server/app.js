@@ -123,6 +123,23 @@ router.get("/", (req, res) => {
     });
 });
 
+app.post('/api/payment', (req, res) => {
+    const { cardNumber, expiryDate, cvv } = req.body;
+    if (cardNumber && expiryDate && cvv) {
+        res.status(200).json({ message: 'Payment successful' });
+    } else {
+        res.status(400).json({ error: 'Invalid payment details' });
+    }
+});
+
+
+app.post('/echo', (req, res) => {
+    const { userInput } = req.body;
+    // Echo back the user input without sanitization
+    res.status(200).send(userInput);
+});
+
+
 app.use("/users", router);
 
 const PORT = process.env.PORT || 3001;
