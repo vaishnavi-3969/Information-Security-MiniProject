@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Confetti from 'react-confetti';
-import { FaUser, FaLock, FaCheckCircle, FaExclamationCircle, FaUsers } from 'react-icons/fa';
+import Confetti from 'react-confetti'; 
 
 const Auth = () => {
     const [signupUsername, setSignupUsername] = useState('');
@@ -68,33 +67,19 @@ const Auth = () => {
             <h1 className="text-3xl font-semibold mb-4">Welcome to Our Banking Website</h1>
 
             <div className="mb-6">
-                <div className="flex ">
-                    <button onClick={() => toggleTab('signup')} className={`mr-2 py-2 px-4 rounded ${activeTab === 'signup' ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'}`}>
-                        <FaUser className="inline-block mr-2" /> Signup
-                    </button>
-                    <button onClick={() => toggleTab('login')} className={`py-2 px-4 rounded ${activeTab === 'login' ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'}`}>
-                        <FaUser className="inline-block mr-2" /> Login
-                    </button>
-                    <button onClick={() => toggleTab('users')} className="ml-auto py-2 px-4 rounded bg-green-500 text-white">
-                        <FaUsers className="inline-block mr-2" /> Show Users
-                    </button>
+                <div className="flex">
+                    <button onClick={() => toggleTab('signup')} className={`mr-2 py-2 px-4 rounded ${activeTab === 'signup' ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'}`}>Signup</button>
+                    <button onClick={() => toggleTab('login')} className={`py-2 px-4 rounded ${activeTab === 'login' ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'}`}>Login</button>
+                    <button onClick={() => toggleTab('users')} className="ml-auto py-2 px-4 rounded bg-green-500 text-white">Show Users</button>
                 </div>
             </div>
 
             {activeTab === 'signup' && (
                 <div className="mb-6">
                     <h2 className="text-xl font-semibold mb-2">Signup</h2>
-                    <div className="flex items-center mb-2">
-                        <FaUser className="mr-2 text-gray-500" />
-                        <input type="text" placeholder="Username" value={signupUsername} onChange={(e) => setSignupUsername(e.target.value)} className="w-full p-2 border border-gray-300 rounded" />
-                    </div>
-                    <div className="flex items-center mb-2">
-                        <FaLock className="mr-2 text-gray-500" />
-                        <input type="password" placeholder="Password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} className="w-full p-2 border border-gray-300 rounded" />
-                    </div>
-                    <button onClick={handleSignup} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                        <FaCheckCircle className="mr-2" /> Signup
-                    </button>
+                    <input type="text" placeholder="Username" value={signupUsername} onChange={(e) => setSignupUsername(e.target.value)} className="w-full p-2 mb-2 border border-gray-300 rounded" />
+                    <input type="password" placeholder="Password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} className="w-full p-2 mb-2 border border-gray-300 rounded" />
+                    <button onClick={handleSignup} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Signup</button>
                     {successMessage && (
                         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
                             <Confetti />
@@ -107,18 +92,10 @@ const Auth = () => {
             {activeTab === 'login' && (
                 <div className="mb-6">
                     <h2 className="text-xl font-semibold mb-2">Login</h2>
-                    <div className="flex items-center mb-2">
-                        <FaUser className="mr-2 text-gray-500" />
-                        <input type="text" placeholder="Username" value={loginUsername} onChange={(e) => setLoginUsername(e.target.value)} className="w-full p-2 border border-gray-300 rounded" />
-                    </div>
-                    <div className="flex items-center mb-2">
-                        <FaLock className="mr-2 text-gray-500" />
-                        <input type="password" placeholder="Password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} className="w-full p-2 border border-gray-300 rounded" />
-                    </div>
-                    <button onClick={handleLogin} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                        <FaCheckCircle className="mr-2" /> Login
-                    </button>
-                    {error && <p className="text-red-500 mt-2"><FaExclamationCircle className="mr-2" />{error}</p>}
+                    <input type="text" placeholder="Username" value={loginUsername} onChange={(e) => setLoginUsername(e.target.value)} className="w-full p-2 mb-2 border border-gray-300 rounded" />
+                    <input type="password" placeholder="Password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} className="w-full p-2 mb-2 border border-gray-300 rounded" />
+                    <button onClick={handleLogin} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Login</button>
+                    {error && <p className="text-red-500 mt-2">{error}</p>}
                     {successMessage && (
                         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
                             <Confetti /> 
