@@ -49,14 +49,15 @@ router.post("/getdetails", (req, res) => {
     });
 });
 
-
-
 router.post("/login", (req, res) => {
     const { username, password } = req.body;
     console.log("Received login request for username:", username, "and password:", password);
 
+    // Vulnerable to SQL injection!
+    const sqlQuery = `SELECT * FROM users WHERE username='${username}' AND password='${password}'`;
+
     db.serialize(() => {
-        db.get(`SELECT * FROM users WHERE username=? AND password=?`, [username, password], (err, row) => {
+        db.get(sqlQuery, (err, row) => {
             if (err) {
                 res.status(500).send({ message: "Internal server error" });
                 console.error(err);
@@ -71,6 +72,29 @@ router.post("/login", (req, res) => {
         });
     });
 });
+
+// Using parameterized queries to avoid sql injection attack
+
+// router.post("/login", (req, res) => {
+//     const { username, password } = req.body;
+//     console.log("Received login request for username:", username, "and password:", password);
+
+//     db.serialize(() => {
+//         db.get(`SELECT * FROM users WHERE username=? AND password=?`, [username, password], (err, row) => {
+//             if (err) {
+//                 res.status(500).send({ message: "Internal server error" });
+//                 console.error(err);
+//             } else {
+//                 console.log("Query result:", row);
+//                 if (row) {
+//                     res.status(200).send({ message: "Login successful" });
+//                 } else {
+//                     res.status(401).send({ message: "Invalid username or password" });
+//                 }
+//             }
+//         });
+//     });
+// });
 
 router.post("/signup", (req, res) => {
     const { username, password } = req.body;
