@@ -24,9 +24,6 @@ const db = new sqlite3.Database(dbPath);
 // Create users table
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)");
-    // Insert sample data for testing
-    db.run("INSERT INTO users (username, password) VALUES ('user1', 'password1')");
-    db.run("INSERT INTO users (username, password) VALUES ('user2', 'password2')");
 });
 
 const router = express.Router();
@@ -51,6 +48,8 @@ router.post("/getdetails", (req, res) => {
         });
     });
 });
+
+
 
 router.post("/login", (req, res) => {
     const { username, password } = req.body;
