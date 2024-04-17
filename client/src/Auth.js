@@ -64,10 +64,12 @@ const Auth = () => {
         setSuccessMessage('');
     };
 
-    const handlePostMessage = () => {
+    const handlePostMessage = async() => {
+        
         // Simulate posting a message to the server
-        const sanitizedMessage = message.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        setMessages([...messages, sanitizedMessage]);
+        const div = document.createElement('div');
+        div.innerHTML = message;
+        setMessages([...messages, div.innerHTML]);
         setMessage(''); // Clear input field
     };
 

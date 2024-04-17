@@ -133,11 +133,21 @@ app.post('/api/payment', (req, res) => {
 });
 
 
-app.post('/echo', (req, res) => {
-    const { userInput } = req.body;
-    // Echo back the user input without sanitization
-    res.status(200).send(userInput);
+router.post("/messages", (req, res) => {
+    const { message } = req.body;
+
+    db.serialize(() => {
+        db.run(`INSERT INTO messages (message) VALUES (?)`, [message], (err) => {
+            if (err) {
+                res.status(500).send({ message: "Internal server error" });
+                console.error(err);
+            } else {
+                res.status(201).send({ message: "Message posted successfully" });
+            }
+        });
+    });
 });
+
 
 
 app.use("/users", router);
