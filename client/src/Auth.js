@@ -75,89 +75,96 @@ const Auth = () => {
         setMessages([...messages, div.innerHTML]);
         setMessage(''); // Clear input field
     };
+
     const sanitizedMessages = messages.map((msg, index) => (
         <div key={index} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(msg) }} />
     ));
 
 
     return (
-        <div className="container relative max-w-lg py-20 mx-auto">
-            <div className='items-center justify-center text-center align-center'>
-                <img src={Logo} alt='' className='w-[300px]' />
-            </div>
-            <h1 className="mb-4 text-3xl font-semibold">Welcome to Mega Bank</h1>
-            <div className="mb-6">
-                <div className="flex">
-                    <button onClick={() => toggleTab('signup')} className={`mr-2 py-2 px-4 rounded ${activeTab === 'signup' ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'}`}>Signup</button>
-                    <button onClick={() => toggleTab('login')} className={`py-2 px-4 rounded ${activeTab === 'login' ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'}`}>Login</button>
-                    <button onClick={() => toggleTab('users')} className="px-4 py-2 ml-auto text-white bg-green-500 rounded">Show Users</button>
+        <div className='bg-slate-300'>
+            <div className="container relative max-w-lg py-20 mx-auto">
+                <div className='flex p-3'>
+                    <img src={Logo} alt='' className='w-[100px] rounded-sm px-2' />
+                    <h1 className="mb-4 text-3xl font-semibold">Welcome to Mega Bank</h1>
                 </div>
-            </div>
-
-            {activeTab === 'signup' && (
                 <div className="mb-6">
-                    <h2 className="mb-2 text-xl font-semibold">Signup</h2>
-                    <input type="text" placeholder="Username" value={signupUsername} onChange={(e) => setSignupUsername(e.target.value)} className="w-full p-2 mb-2 border border-gray-300 rounded" />
-                    <input type="password" placeholder="Password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} className="w-full p-2 mb-2 border border-gray-300 rounded" />
-                    <button onClick={handleSignup} className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">Signup</button>
-                    {successMessage && (
-                        <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full">
-                            <Confetti />
-                            <p className="text-lg font-semibold text-green-500">Signup successful!</p>
-                        </div>
-                    )}
+                    <div className="flex">
+                        <button onClick={() => toggleTab('signup')} className={`mr-2 py-2 px-4 rounded ${activeTab === 'signup' ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'}`}>Signup</button>
+                        <button onClick={() => toggleTab('login')} className={`py-2 px-4 rounded ${activeTab === 'login' ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'}`}>Login</button>
+                        <button onClick={() => toggleTab('users')} className="px-4 py-2 ml-auto text-white bg-green-500 rounded">Show Users</button>
+                    </div>
                 </div>
-            )}
 
-            {activeTab === 'login' && (
-                <div className="mb-6">
-                    <h2 className="mb-2 text-xl font-semibold">Login</h2>
-                    <input type="text" placeholder="Username" value={loginUsername} onChange={(e) => setLoginUsername(e.target.value)} className="w-full p-2 mb-2 border border-gray-300 rounded" />
-                    <input type="password" placeholder="Password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} className="w-full p-2 mb-2 border border-gray-300 rounded" />
-                    <button onClick={handleLogin} className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">Login</button>
-                    {error && <p className="mt-2 text-red-500">{error}</p>}
-                    {successMessage && (
-                        <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full">
-                            <Confetti />
-                            <p className="text-lg font-semibold text-green-500">Login successful!</p>
-                        </div>
-                    )}
-                </div>
-            )}
+                {activeTab === 'signup' && (
+                    <div className="mb-6">
+                        <h2 className="mb-2 text-xl font-semibold">Signup</h2>
+                        <input type="text" placeholder="Username" value={signupUsername} onChange={(e) => setSignupUsername(e.target.value)} className="w-full p-2 mb-2 border border-gray-300 rounded" />
+                        <input type="password" placeholder="Password" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} className="w-full p-2 mb-2 border border-gray-300 rounded" />
+                        <button onClick={handleSignup} className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">Signup</button>
+                        {successMessage && (
+                            <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full">
+                                <Confetti />
+                                <p className="text-lg font-semibold text-green-500">Signup successful!</p>
+                            </div>
+                        )}
+                    </div>
+                )}
 
-            {activeTab === 'users' && (
+                {activeTab === 'login' && (
+                    <div className="mb-6">
+                        <h2 className="mb-2 text-xl font-semibold">Login</h2>
+                        <input type="text" placeholder="Username" value={loginUsername} onChange={(e) => setLoginUsername(e.target.value)} className="w-full p-2 mb-2 border border-gray-300 rounded" />
+                        <input type="password" placeholder="Password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} className="w-full p-2 mb-2 border border-gray-300 rounded" />
+                        <button onClick={handleLogin} className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">Login</button>
+                        {error && <p className="mt-2 text-red-500">{error}</p>}
+                        {successMessage && (
+                            <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full">
+                                <Confetti />
+                                <p className="text-lg font-semibold text-green-500">Login successful!</p>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {activeTab === 'users' && (
+                    <div>
+                        <h2 className="mb-2 text-xl font-semibold">All Users</h2>
+                        <ul>
+                            {users.map((user) => (
+                                <li key={user.id} className="mb-2">
+                                    <span className="font-semibold">{user.username}</span>: {user.password}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
                 <div>
-                    <h2 className="mb-2 text-xl font-semibold">All Users</h2>
-                    <ul>
-                        {users.map((user) => (
-                            <li key={user.id} className="mb-2">
-                                <span className="font-semibold">{user.username}</span>: {user.password}
-                            </li>
+                    <input
+                        className='px-4 rounded-sm'
+                        type="textarea"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                    />
+                    <button className='p-2 m-3 text-white bg-blue-800 rounded-lg' onClick={handlePostMessage}>Comment</button>
+
+                    <div>
+                        {messages.map((msg, index) => (
+                            <div key={index} dangerouslySetInnerHTML={{ __html: msg }} />
                         ))}
-                    </ul>
-                </div>
-            )}
-            <div>
-                <input
-                    type="textarea"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                />
-                <button onClick={handlePostMessage}>Post Message</button>
-                <div>
-                    {messages.map((msg, index) => (
-                        <div key={index} dangerouslySetInnerHTML={{ __html: msg }} />
-                    ))}
 
-                    {/* to avoid xss attack */}
-                    {/* {messages.map((msg, index) => (
+                        {/* to avoid xss attack */}
+
+                        {/* {messages.map((msg, index) => (
                         <div key={index}>{msg}</div>
                     ))} */}
 
+                    </div>
                 </div>
             </div>
         </div>
     );
+
 };
 
 export default Auth;
