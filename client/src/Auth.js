@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Confetti from 'react-confetti';
 import DOMPurify from 'dompurify';
+import Logo from "./images/image.png";
 
 const Auth = () => {
     const [signupUsername, setSignupUsername] = useState('');
@@ -81,8 +82,10 @@ const Auth = () => {
 
     return (
         <div className="container relative max-w-lg py-20 mx-auto">
-            <h1 className="mb-4 text-3xl font-semibold">Welcome to Our Banking Website</h1>
-
+            <div className='items-center justify-center text-center align-center'>
+                <img src={Logo} alt='' className='w-[300px]' />
+            </div>
+            <h1 className="mb-4 text-3xl font-semibold">Welcome to Mega Bank</h1>
             <div className="mb-6">
                 <div className="flex">
                     <button onClick={() => toggleTab('signup')} className={`mr-2 py-2 px-4 rounded ${activeTab === 'signup' ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-700'}`}>Signup</button>
