@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Confetti from 'react-confetti';
+import DOMPurify from 'dompurify';
 
 const Auth = () => {
     const [signupUsername, setSignupUsername] = useState('');
@@ -51,6 +52,7 @@ const Auth = () => {
             setError('');
             setTimeout(() => {
                 setSuccessMessage('');
+                window.location.href = '/actions';
             }, 3000);
         } catch (error) {
             console.error(error);
@@ -64,14 +66,18 @@ const Auth = () => {
         setSuccessMessage('');
     };
 
-    const handlePostMessage = async() => {
-        
+    const handlePostMessage = async () => {
+
         // Simulate posting a message to the server
         const div = document.createElement('div');
         div.innerHTML = message;
         setMessages([...messages, div.innerHTML]);
         setMessage(''); // Clear input field
     };
+    const sanitizedMessages = messages.map((msg, index) => (
+        <div key={index} dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(msg) }} />
+    ));
+
 
     return (
         <div className="container relative max-w-lg py-20 mx-auto">
@@ -139,6 +145,12 @@ const Auth = () => {
                     {messages.map((msg, index) => (
                         <div key={index} dangerouslySetInnerHTML={{ __html: msg }} />
                     ))}
+
+                    {/* to avoid xss attack */}
+                    {/* {messages.map((msg, index) => (
+                        <div key={index}>{msg}</div>
+                    ))} */}
+
                 </div>
             </div>
         </div>
