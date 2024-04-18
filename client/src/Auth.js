@@ -141,7 +141,7 @@ const Auth = () => {
                 )}
                 <div>
                     <input
-                        className='px-4 rounded-sm'
+                        className='rounded-sm '
                         type="textarea"
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
@@ -154,10 +154,9 @@ const Auth = () => {
                         ))}
 
                         {/* to avoid xss attack */}
-
-                        {/* {messages.map((msg, index) => (
-                        <div key={index}>{msg}</div>
-                    ))} */}
+                        {messages.map((msg, index) => (
+                            <div key={index}>{msg}</div>
+                        ))}
 
                     </div>
                 </div>
